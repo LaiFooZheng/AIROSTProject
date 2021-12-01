@@ -14,11 +14,11 @@ import imghdr
 
 
 def send_email(to, qr_file_path):
-    user = "code4testingFZ@gmail.com"  # This is temporary gmail account I created
-    password = "vopkmwjeegkoxrie"
+    user = "noreplycode999@gmail.com"  # This is temporary gmail account I created
+    password = "eyfypqezftopwdhe"
 
     msg = EmailMessage()
-    msg.set_content("Please download Google Authenticator and scan the qr code with the app. Your OTP refreshes every 30 seconds.")
+    msg.set_content("Please download Google Authenticator and scan qr code. Your OTP refreshes every 30 seconds.")
     msg['subject'] = "AIROST Project OTP"
     msg['to'] = to
     msg['from'] = user
@@ -40,6 +40,7 @@ def send_email(to, qr_file_path):
 
 
 # Decided not to send sms as it cost money after the free amount the service gave is used up
+# The auth token was made public and deactivated
 def send_sms(receiver, otp_in):
     account_sid = "AC43e43cc1829665296c08ead47654ec39"
     auth_token = "d578d6b93fb8b13052944fe43954febd"
@@ -71,6 +72,4 @@ def otp_check(secret_key, user_otp):
         return True
     else:
         return False
-
-
 

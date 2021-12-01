@@ -1,6 +1,7 @@
 import db
 import attendanceproject as atd
 import otp
+import random
 
 current_user = 0
 current_id = 0
@@ -9,6 +10,18 @@ current_id = 0
 # functions
 
 
+def uid_generator():
+    global current_user, current_id
+    uid = random.randint(1000, 10000)
+    for eid in range(len(db.acc)):
+        if uid == db.acc[eid].value:
+            current_id = eid
+            current_user = uid
+    print("Account ID Generated: ", uid)
+    return uid
+
+
+# replaced with uid generator function
 def exist(uid):
     # Check if the user id exist in database
     global current_user, current_id
@@ -113,20 +126,16 @@ def login():
 
 def register(): # currently broken
     print("")
-    u_i1 = int(input("Please enter account id: "))
-    if exist(u_i1):
-        print("Sorry, the id was taken.")
-        register()
-    else:
-        u_p1 = int(input("Please enter password: "))
-        u_n1 = input("Please input account name: ")
-        u_e1 = input("Please enter your email address: ")
-        u_h1 = input("Please enter your hand phone number: ")
-        print("Press Q when your face is boxed to capture your face id.")
-        u_face = atd.registerEncodings()
-        db.registration(u_i1, u_n1, u_p1, u_e1, u_h1, u_face)
-        print("Register success!")
-        main()
+    u_i1 = uid_generator()
+    u_p1 = int(input("Please enter password: "))
+    u_n1 = input("Please input account name: ")
+    u_e1 = input("Please enter your email address: ")
+    u_h1 = input("Please enter your hand phone number: ")
+    print("Press Q when your face is boxed to capture your face id.")
+    u_face = atd.registerEncodings()
+    db.registration(u_i1, u_n1, u_p1, u_e1, u_h1, u_face)
+    print("Register success!")
+    main()
 
 
 def main():

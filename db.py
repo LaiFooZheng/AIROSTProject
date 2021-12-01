@@ -1,8 +1,8 @@
 from openpyxl import load_workbook
 import numpy as np
 import pyotp
-
 import otp
+import random
 
 print("Loading...")
 database = load_workbook('userdata.xlsx')
@@ -55,4 +55,3 @@ def registration(user_id, user_name, password, user_email, user_hp_num, face_id)
         face[x][-1].value = face_id[x]
     save_2()
     print("Account created!")
-
