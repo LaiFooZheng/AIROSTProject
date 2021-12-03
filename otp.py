@@ -55,14 +55,14 @@ def send_sms(receiver, otp_in):
 
 
 def otp_generate(base32secret, email):
-    print("Secret Key Generated", base32secret)
+    print("Secret Key Generated")
     totp = pyotp.TOTP(base32secret)
     auth = totp.provisioning_uri(name=email, issuer_name="AIROST Project")
     img = qrcode.make(auth)
     img.save("QR_OTP.jpg")
     print("QR Code Generated")
     otp = totp.now()
-    print(otp)
+    # print(otp)
     send_email(email, "QR_OTP.jpg")
 
 

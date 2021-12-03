@@ -1,5 +1,5 @@
 import db
-import attendanceproject as atd
+import faceRecognitionProject as fr
 import otp
 import random
 
@@ -70,13 +70,23 @@ def user_action():
         print("Your current balance is ", db.balance[current_id].value)
         user_action()
     elif ac == 2:
-        amount = int(input("Input the amount to be withdrawn: "))
-        withdraw(amount)
-        user_action()
+        amount = int(input("Input the amount to be withdrawn: RM"))
+        user_code = input("Enter OTP: ")
+        if otp.otp_check(db.secret_key[current_id].value, user_code):
+            withdraw(amount)
+            user_action()
+        else:
+            print("OTP is wrong. Please try again.")
+            user_action()
     elif ac == 3:
-        amount = int(input("Input the amount to be deposited: "))
-        deposit(amount)
-        user_action()
+        amount = int(input("Input the amount to be deposited: RM"))
+        user_code = input("Enter OTP: ")
+        if otp.otp_check(db.secret_key[current_id].value, user_code):
+            deposit(amount)
+            user_action()
+        else:
+            print("OTP is wrong. Please try again.")
+            user_action()
     elif ac == 4:
         print("Thanks for using XXX services.")
     else:
@@ -102,14 +112,14 @@ def login():
                     print("Access Granted")
                     user_action()
                 else:
-                    print("OTP is wrong. Try again")
+                    print("OTP is wrong. Please try again")
                     login()
             else:
                 print("Sorry, you account id or password are wrong.")
                 main()
         elif u_c == 2: # face recog
             print("Press Q to cancel verification.")
-            if atd.verifi(current_id):
+            if fr.verifi(current_id):
                 user_action()
             else:
                 print("Verification failed, please try again.")
@@ -124,7 +134,7 @@ def login():
         main()
 
 
-def register(): # currently broken
+def register():
     print("")
     u_i1 = uid_generator()
     u_p1 = int(input("Please enter password: "))
@@ -132,7 +142,7 @@ def register(): # currently broken
     u_e1 = input("Please enter your email address: ")
     u_h1 = input("Please enter your hand phone number: ")
     print("Press Q when your face is boxed to capture your face id.")
-    u_face = atd.registerEncodings()
+    u_face = fr.registerEncodings()
     db.registration(u_i1, u_n1, u_p1, u_e1, u_h1, u_face)
     print("Register success!")
     main()
@@ -152,6 +162,7 @@ def main():
     else:
         print("Invalid action, please try again")
         main()
+
 
 try:
     main()
