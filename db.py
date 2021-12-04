@@ -1,8 +1,6 @@
 from openpyxl import load_workbook
-import numpy as np
 import pyotp
 import otp
-import random
 
 print("Loading...")
 database = load_workbook('userdata.xlsx')

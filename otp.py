@@ -1,4 +1,4 @@
-from twilio.rest import Client
+# from twilio.rest import Client
 import smtplib
 from email.message import EmailMessage
 import pyotp
@@ -41,17 +41,17 @@ def send_email(to, qr_file_path):
 
 # Decided not to send sms as it cost money after the free amount the service gave is used up
 # The auth token was made public and deactivated
-def send_sms(receiver, otp_in):
-    account_sid = "AC43e43cc1829665296c08ead47654ec39"
-    auth_token = "d578d6b93fb8b13052944fe43954febd"
-    client = Client(account_sid, auth_token)
-
-    # This free twilio number cost money everytime send sms
-    client.messages.create(
-        body=f"Your OTP is {otp_in}",
-        from_='+18306236088',
-        to=receiver
-    )
+# def send_sms(receiver, otp_in):
+#     account_sid = "AC43e43cc1829665296c08ead47654ec39"
+#     auth_token = "d578d6b93fb8b13052944fe43954febd"
+#     client = Client(account_sid, auth_token)
+#
+#     # This free twilio number cost money everytime send sms
+#     client.messages.create(
+#         body=f"Your OTP is {otp_in}",
+#         from_='+18306236088',
+#         to=receiver
+#     )
 
 
 def otp_generate(base32secret, email):
